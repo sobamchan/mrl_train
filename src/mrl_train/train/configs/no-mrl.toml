@@ -1,0 +1,3 @@
+model_name = "bert-base-uncased"
+matryoshka_dims = [768]
+output_dir = "./outputs/train/bert-base-uncased/no-mrl/"

@@ -1,0 +1,27 @@
+[project]
+name = "mrl-train"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "accelerate>=1.11.0",
+    "datasets>=4.4.1",
+    "numpy>=2.3.5",
+    "protobuf>=6.33.1",
+    "sentence-transformers>=5.1.2",
+    "torch>=2.9.1",
+    "transformers>=4.57.1",
+]
+
+[dependency-groups]
+dev = [
+    "ipython>=9.7.0",
+    "mypy>=1.18.2",
+    "neovim>=0.3.1",
+    "pynvim>=0.6.0",
+    "pyright>=1.1.407",
+    "pytest>=9.0.1",
+    "ruff>=0.14.5",
+    "ruff-lsp>=0.0.62",
+]
