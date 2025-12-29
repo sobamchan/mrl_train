@@ -12,7 +12,6 @@ python training_nli.py pretrained_transformer_model_name
 
 import logging
 from pathlib import Path
-import traceback
 from dataclasses import dataclass
 from argparse import ArgumentParser
 
@@ -139,6 +138,11 @@ def main():
     # 8. Save the trained & evaluated model locally
     final_output_dir = f"{output_dir}/final"
     model.save(final_output_dir)
+
+    trainer._load_best_model()
+    model = trainer.model
+    best_output_dir = f"{output_dir}/best"
+    model.save(best_output_dir)
 
     # 9. (Optional) save the model to the Hugging Face Hub!
     # It is recommended to run `huggingface-cli login` to log into your Hugging Face account first
