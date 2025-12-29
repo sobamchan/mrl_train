@@ -1,0 +1,5 @@
+model_name = "google-bert/bert-large-uncased"
+matryoshka_dims = [768]
+batch_size = 32
+num_train_epochs = 15
+output_dir = "./outputs/train/bert-large-uncased/no-mrl/"
