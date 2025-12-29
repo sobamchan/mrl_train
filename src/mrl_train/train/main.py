@@ -30,6 +30,8 @@ from mrl_train.utils import read_toml
 class Config:
     model_name: str
     matryoshka_dims: list[int]
+    batch_size: int
+    num_train_epochs: int
     output_dir: Path
 
     @classmethod
@@ -42,6 +44,8 @@ class Config:
         return cls(
             model_name=config["model_name"],
             matryoshka_dims=config["matryoshka_dims"],
+            batch_size=config["batch_size"],
+            num_train_epochs=config["num_train_epochs"],
             output_dir=config["output_dir"],
         )
 
@@ -58,7 +62,7 @@ def main():
 
     # You can specify any Hugging Face pre-trained model here, for example, bert-base-uncased, roberta-base, xlm-roberta-base
     model_name = config.model_name
-    train_batch_size = 16
+    train_batch_size = config.batch_size
 
     output_dir = config.output_dir
 
@@ -96,20 +100,20 @@ def main():
     # 5. Define the training arguments
     args = SentenceTransformerTrainingArguments(
         # Required parameter:
-        output_dir=output_dir,
+        output_dir=str(output_dir),
         # Optional training parameters:
-        num_train_epochs=5,
+        num_train_epochs=config.num_train_epochs,
         per_device_train_batch_size=train_batch_size,
         per_device_eval_batch_size=train_batch_size,
         warmup_ratio=0.1,
-        fp16=True,  # Set to False if you get an error that your GPU can't run on FP16
+        fp16=False,  # Set to False if you get an error that your GPU can't run on FP16
         bf16=False,  # Set to True if you have a GPU that supports BF16
         # Optional tracking/debugging parameters:
         eval_strategy="steps",
-        eval_steps=100,
+        eval_steps=500,
         save_strategy="steps",
-        save_steps=100,
-        logging_steps=100,
+        save_steps=500,
+        logging_steps=500,
         run_name="nli-v1",  # Will be used in W&B if `wandb` is installed
     )
 
