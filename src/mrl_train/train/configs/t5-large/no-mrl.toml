@@ -1,0 +1,5 @@
+model_name = "google-t5/t5-large"
+matryoshka_dims = [768]
+batch_size = 32
+num_train_epochs = 15
+output_dir = "./outputs/train/t5-large/no-mrl/"
