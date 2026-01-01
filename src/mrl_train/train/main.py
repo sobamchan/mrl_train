@@ -11,6 +11,7 @@ python training_nli.py pretrained_transformer_model_name
 """
 
 import logging
+import os
 from pathlib import Path
 from dataclasses import dataclass
 from argparse import ArgumentParser
@@ -126,7 +127,9 @@ def main():
         loss=train_loss,
         evaluator=dev_evaluator,
     )
-    trainer.train()
+
+    resume = os.environ.get("RESUME", "false") == "true"
+    trainer.train(resume_from_checkpoint=resume)
 
     # 7. Evaluate the model performance on the STS Benchmark test dataset
     test_dataset = load_dataset("sentence-transformers/stsb", split="test")

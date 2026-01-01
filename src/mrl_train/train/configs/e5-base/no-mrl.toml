@@ -1,0 +1,5 @@
+model_name = "intfloat/e5-base"
+matryoshka_dims = [768]
+batch_size = 32
+num_train_epochs = 15
+output_dir = "./outputs/train/e5-base/no-mrl/"
