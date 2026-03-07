@@ -34,6 +34,7 @@ class Config:
     batch_size: int
     num_train_epochs: int
     output_dir: Path
+    truncate_dim: int | None
 
     @classmethod
     def from_config(cls) -> "Config":
@@ -48,6 +49,7 @@ class Config:
             batch_size=config["batch_size"],
             num_train_epochs=config["num_train_epochs"],
             output_dir=config["output_dir"],
+            truncate_dim=config.get("truncate_dim", None),
         )
 
 
@@ -69,7 +71,7 @@ def main():
 
     # 1. Here we define our SentenceTransformer model. If not already a Sentence Transformer model, it will automatically
     # create one with "mean" pooling.
-    model = SentenceTransformer(model_name)
+    model = SentenceTransformer(model_name, truncate_dim=config.truncate_dim)
 
     # 2. Load the AllNLI dataset: https://huggingface.co/datasets/sentence-transformers/all-nli
     # We'll start with 10k training samples, but you can increase this to get a stronger model
