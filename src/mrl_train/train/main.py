@@ -84,9 +84,13 @@ def main():
 
     # 3. Define our training loss: https://sbert.net/docs/package_reference/sentence_transformer/losses.html#softmaxloss
     base_train_loss = losses.MultipleNegativesRankingLoss(model=model)
-    train_loss = losses.MatryoshkaLoss(
-        model=model, loss=base_train_loss, matryoshka_dims=config.matryoshka_dims
-    )
+
+    if len(config.matryoshka_dims) > 0:
+        train_loss = losses.MatryoshkaLoss(
+            model=model, loss=base_train_loss, matryoshka_dims=config.matryoshka_dims
+        )
+    else:
+        train_loss = base_train_loss
 
     # 4. Define an evaluator for use during training. This is useful to keep track of alongside the evaluation loss.
     stsb_eval_dataset = load_dataset("sentence-transformers/stsb", split="validation")
